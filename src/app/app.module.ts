@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import {
+  HTTP_INTERCEPTORS,
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
@@ -14,15 +15,10 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ShowListComponent } from './pages/show-list/show-list.component';
 import { ShowDetailsComponent } from './pages/show-details/show-details.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    HomeComponent,
-    ShowDetailsComponent,
-  ],
+  declarations: [AppComponent, FooterComponent, HomeComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -30,8 +26,13 @@ import { ShowDetailsComponent } from './pages/show-details/show-details.componen
     LoginComponent,
     RegisterComponent,
     ShowListComponent,
+    HeaderComponent,
+    ShowDetailsComponent,
   ],
-  providers: [provideHttpClient(withInterceptorsFromDi())],
+  providers: [
+    provideHttpClient(withInterceptorsFromDi()),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
