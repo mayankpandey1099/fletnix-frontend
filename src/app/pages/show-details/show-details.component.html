@@ -1,1 +1,21 @@
-<p>show-details works!</p>
+<div class="container mx-auto p-4">
+    <h2 class="text-2xl font-bold mb-4">{{ show?.title }}</h2>
+    <div *ngIf="error" class="text-red-600 mb-4">{{ error }}</div>
+    <div *ngIf="loading" class="flex justify-center">
+        <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-blue-600"></div>
+    </div>
+    <div *ngIf="show && !loading" class="border p-4 rounded-lg shadow-md">
+        <p><strong>Type:</strong> {{ show.type }}</p>
+        <p><strong>Director:</strong> {{ show.director }}</p>
+        <p><strong>Cast:</strong>
+            {{ show?.cast?.length ? show.cast.join(', ') : 'N/A' }}      </p>
+        <p><strong>Country:</strong> {{ show.country }}</p>
+        <p><strong>Release Year:</strong> {{ show.release_year }}</p>
+        <p><strong>Rating:</strong> {{ show.rating }}</p>
+        <p><strong>Duration:</strong> {{ show.duration }}</p>
+        <p><strong>Genres:</strong>
+            {{ show?.listed_in?.length ? show.listed_in.join(', ') : 'N/A' }}</p>
+        <p><strong>Description:</strong> {{ show.description }}</p>
+        <a [routerLink]="['/shows']" [queryParams]="queryParams" class="text-blue-600 hover:underline">Back to Shows</a>
+    </div>
+</div>

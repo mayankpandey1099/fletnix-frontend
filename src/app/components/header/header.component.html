@@ -1,1 +1,7 @@
-<p>header works!</p>
+<nav class="bg-gray-900 text-white p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+        <a [routerLink]="['/']" class="text-2xl font-bold tracking-tight">FletNix</a>
+        <button *ngIf="isLoggedIn" (click)="logout()"
+            class="bg-red-600 hover:bg-red-700 p-2 rounded-md transition">Logout</button>
+    </div>
+</nav>

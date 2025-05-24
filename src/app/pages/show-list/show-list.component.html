@@ -1,17 +1,48 @@
 <div class="container mx-auto p-4">
-    <h2 class="text-2xl font-bold mb-4">Shows</h2>
-    <div *ngIf="shows.length === 0">No shows found</div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div *ngFor="let show of shows" class="border p-4">
-            <h3 class="text-lg font-semibold">{{ show.title }}</h3>
-            <p>Type: {{ show.type }}</p>
-            <p>Rating: {{ show.rating }}</p>
-            <a [routerLink]="['/shows', show._id]" class="text-blue-500">View Details</a>
+    <div class="flex flex-col md:flex-row justify-between items-start mb-6">
+        <h2 class="text-3xl font-bold text-gray-800">Shows</h2>
+        <div class="flex flex-col space-y-2">
+            <select [(ngModel)]="selectedType" (ngModelChange)="onTypeChange()"
+                class="p-2 rounded-md text-black focus:outline-none w-40">
+                <option value="Movie">Movie</option>
+                <option value="Tv Show">Tv Show</option>
+            </select>
+            <div class="flex items-center space-x-2">
+                <input [(ngModel)]="searchQuery" placeholder="Search shows..."
+                    class="p-2 rounded-md text-black focus:outline-none focus:ring-2 focus:ring-blue-500 w-40">
+                <button (click)="onSearch()"
+                    class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-md transition">Search</button>
+            </div>
         </div>
     </div>
-    <div class="mt-4 flex justify-between">
-        <button (click)="previousPage()" [disabled]="currentPage === 1" class="bg-gray-300 p-2">Previous</button>
-        <span>Page {{ currentPage }} of {{ totalPages }}</span>
-        <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="bg-gray-300 p-2">Next</button>
+    <div class="flex justify-between items-center mb-4">
+        <div *ngIf="error" class="text-red-600">{{ error }}</div>
+        <div *ngIf="shows.length === 0 && !error && !loading" class="text-center text-gray-600 flex-1">No shows found
+        </div>
+        <div *ngIf="loading" class="flex-1 text-center">
+            <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-blue-600"></div>
+        </div>
+        <select [(ngModel)]="limit" (ngModelChange)="onLimitChange()"
+            class="p-2 rounded-md text-black focus:outline-none">
+            <option value="10">10 per page</option>
+            <option value="15">15 per page</option>
+            <option value="20">20 per page</option>
+        </select>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div *ngFor="let show of shows" class="bg-white shadow-lg rounded-lg p-4 hover:shadow-xl transition">
+            <h3 class="text-xl font-semibold text-gray-800">{{ show.title }}</h3>
+            <p class="text-gray-600">Type: {{ show.type }}</p>
+            <p class="text-gray-600">Rating: {{ show.rating }}</p>
+            <a [routerLink]="['/shows', show._id]" [queryParams]="currentQueryParams"
+                class="text-blue-600 hover:underline">View Details</a>
+        </div>
+    </div>
+    <div class="mt-6 flex justify-between items-center">
+        <button (click)="previousPage()" [disabled]="currentPage === 1"
+            class="bg-gray-300 hover:bg-gray-400 p-2 rounded-md disabled:opacity-50">Previous</button>
+        <span class="text-gray-600">Page {{ currentPage }} of {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages"
+            class="bg-gray-300 hover:bg-gray-400 p-2 rounded-md disabled:opacity-50">Next</button>
     </div>
 </div>
