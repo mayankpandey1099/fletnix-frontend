@@ -1,1 +1,17 @@
-<p>show-list works!</p>
+<div class="container mx-auto p-4">
+    <h2 class="text-2xl font-bold mb-4">Shows</h2>
+    <div *ngIf="shows.length === 0">No shows found</div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div *ngFor="let show of shows" class="border p-4">
+            <h3 class="text-lg font-semibold">{{ show.title }}</h3>
+            <p>Type: {{ show.type }}</p>
+            <p>Rating: {{ show.rating }}</p>
+            <a [routerLink]="['/shows', show._id]" class="text-blue-500">View Details</a>
+        </div>
+    </div>
+    <div class="mt-4 flex justify-between">
+        <button (click)="previousPage()" [disabled]="currentPage === 1" class="bg-gray-300 p-2">Previous</button>
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="bg-gray-300 p-2">Next</button>
+    </div>
+</div>

@@ -21,7 +21,6 @@ import { ShowDetailsComponent } from './pages/show-details/show-details.componen
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    ShowListComponent,
     ShowDetailsComponent,
   ],
   imports: [
@@ -30,6 +29,7 @@ import { ShowDetailsComponent } from './pages/show-details/show-details.componen
     AppRoutingModule,
     LoginComponent,
     RegisterComponent,
+    ShowListComponent,
   ],
   providers: [provideHttpClient(withInterceptorsFromDi())],
   bootstrap: [AppComponent],
