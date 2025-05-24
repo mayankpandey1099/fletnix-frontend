@@ -1,15 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 import { ShowListComponent } from './pages/show-list/show-list.component';
 import { ShowDetailsComponent } from './pages/show-details/show-details.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'shows', component: ShowListComponent },
-  { path: 'shows/:id', component: ShowDetailsComponent },
+  { path: '', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'shows', component: ShowListComponent, canActivate: [AuthGuard] },
+  {
+    path: 'shows/:id',
+    component: ShowDetailsComponent,
+    canActivate: [AuthGuard],
+  },
   { path: '**', redirectTo: '' },
 ];
 
