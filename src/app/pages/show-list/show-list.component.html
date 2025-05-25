@@ -1,28 +1,27 @@
 <div class="container mx-auto p-4">
-    <div class="flex flex-row justify-between items-center flex-wrap gap-4 mb-6">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center flex-wrap gap-4 mb-6">
         <h2 class="text-3xl font-bold text-gray-800">Shows</h2>
-        <div class="flex flex-row items-center gap-4">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">
             <select [(ngModel)]="selectedType" (ngModelChange)="onTypeChange()"
-                class="p-2 rounded-md text-black focus:outline-none w-40">
+                class="p-2 rounded-md text-black focus:outline-none w-full sm:w-40">
                 <option value="Movie">Movie</option>
                 <option value="Tv Show">Tv Show</option>
             </select>
             <input [(ngModel)]="searchQuery" placeholder="Search shows..."
-                class="p-2 rounded-md text-black focus:outline-none focus:ring-2 focus:ring-blue-500 w-40">
+                class="p-2 rounded-md text-black focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-40">
             <button (click)="onSearch()"
-                class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-md transition">Search</button>
+                class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-md w-full sm:w-auto transition">Search</button>
         </div>
     </div>
-    
-    <div class="flex justify-between items-center mb-4">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
         <div *ngIf="error" class="text-red-600">{{ error }}</div>
-        <div *ngIf="shows.length === 0 && !error && !loading" class="text-center text-gray-600 flex-1">No shows found
+        <div *ngIf="shows.length === 0 && !error && !loading" class="text-center text-gray-600 w-full">No shows found
         </div>
-        <div *ngIf="loading" class="flex-1 text-center">
-            <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-blue-600"></div>
+        <div *ngIf="loading" class="w-full text-center">
+            <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-blue-600 mx-auto"></div>
         </div>
         <select [(ngModel)]="limit" (ngModelChange)="onLimitChange()"
-            class="p-2 rounded-md text-black focus:outline-none">
+            class="p-2 rounded-md text-black focus:outline-none w-full sm:w-auto">
             <option value="10">10 per page</option>
             <option value="15">15 per page</option>
             <option value="20">20 per page</option>
@@ -37,11 +36,11 @@
                 class="text-blue-600 hover:underline">View Details</a>
         </div>
     </div>
-    <div class="mt-6 flex justify-between items-center">
+    <div class="mt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
         <button (click)="previousPage()" [disabled]="currentPage === 1"
-            class="bg-gray-300 hover:bg-gray-400 p-2 rounded-md disabled:opacity-50">Previous</button>
+            class="bg-gray-300 hover:bg-gray-400 p-2 rounded-md disabled:opacity-50 w-full sm:w-auto">Previous</button>
         <span class="text-gray-600">Page {{ currentPage }} of {{ totalPages }}</span>
         <button (click)="nextPage()" [disabled]="currentPage === totalPages"
-            class="bg-gray-300 hover:bg-gray-400 p-2 rounded-md disabled:opacity-50">Next</button>
+            class="bg-gray-300 hover:bg-gray-400 p-2 rounded-md disabled:opacity-50 w-full sm:w-auto">Next</button>
     </div>
 </div>
