@@ -10,7 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ShowListComponent } from './pages/show-list/show-list.component';
@@ -18,7 +17,7 @@ import { ShowDetailsComponent } from './pages/show-details/show-details.componen
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
-  declarations: [AppComponent, FooterComponent, HomeComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -28,6 +27,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     ShowListComponent,
     HeaderComponent,
     ShowDetailsComponent,
+    FooterComponent,
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
