@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrlBase: 'http://localhost:5000/api',
+  apiUrlBase: 'https://fletnix-backend-l49z.onrender.com',
 };
