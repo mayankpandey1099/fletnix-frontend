@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 interface Show {
   show_id: string;
@@ -31,7 +32,7 @@ interface PaginatedResponse {
   providedIn: 'root',
 })
 export class ShowService {
-  private apiUrl = 'http://localhost:5000/api/shows';
+  private apiUrl = `${environment.apiUrlBase}/shows`;
 
   constructor(private http: HttpClient) {}
 
