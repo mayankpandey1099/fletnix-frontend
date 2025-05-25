@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
@@ -11,8 +11,14 @@ import { environment } from '../../environments/environment';
 export class AuthService {
   private apiUrl = `${environment.apiUrlBase}/auth`;
   private tokenKey = 'jwt_token';
+  private loggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
+  public isLoggedIn$ = this.loggedInSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {}
+
+  private hasToken(): boolean {
+    return !!localStorage.getItem(this.tokenKey);
+  }
 
   login(email: string, password: string): Observable<any> {
     return this.http
@@ -22,6 +28,7 @@ export class AuthService {
           if (response.data.token) {
             localStorage.setItem(this.tokenKey, response.data.token);
             localStorage.setItem('user', JSON.stringify(response.data.user));
+            this.loggedInSubject.next(true);
           }
         })
       );
@@ -40,6 +47,7 @@ export class AuthService {
           if (response.data.token) {
             localStorage.setItem(this.tokenKey, response.data.token);
             localStorage.setItem('user', JSON.stringify(response.data.user));
+            this.loggedInSubject.next(true);
           }
         })
       );
@@ -51,6 +59,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem('user');
+    this.loggedInSubject.next(false); 
   }
 
   isLoggedIn(): boolean {
