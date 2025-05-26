@@ -22,8 +22,7 @@ FletNix is a frontend application for a streaming platform, built with Angular. 
 - **Node.js**: Install from [nodejs.org](https://nodejs.org).
 - **Angular CLI**: Install globally with `npm install -g @angular/cli`.
 - **Git**: Required to clone the repository.
-- **Render Account**: Sign up at [render.com](https://render.com) for deployment.
-- **GitHub Account**: For pushing code and deploying via Render.
+- **GitHub Account**: For pushing code.
 - **Backend API**: A running backend on Render (e.g., `https://your-backend.onrender.com/api`) with endpoints for `/auth/login`, `/auth/register`, and `/shows`.
 
 ## Installation
@@ -38,21 +37,6 @@ FletNix is a frontend application for a streaming platform, built with Angular. 
    npm install
    ```
 
-3. **Set Up Environment Variables**:
-   - Create a `.env` file in the project root:
-     ```bash
-     echo "API_URL_BASE=https://your-backend.com/api" > .env
-     ```
-   - Replace `https://your-backend.com/api` with your actual backend URL.
-   - The `.env` file is ignored by `.gitignore` for security.
-
-4. **Generate Environment File**:
-   - Run the build script to populate `src/environments/environment.ts` with the `.env` URL:
-     ```bash
-     npm run build
-     ```
-   - This runs `node scripts/generate-env.ts && ng build --configuration=production`.
-
 ## Running Locally
 1. **Start the Development Server**:
    ```bash
@@ -65,5 +49,3 @@ FletNix is a frontend application for a streaming platform, built with Angular. 
 - `src/app/services/show.service.ts`: Fetches shows, search results, and show details.
 - `src/app/interceptors/auth.interceptor.ts`: Adds `Authorization: Bearer <token>` to API requests.
 - `src/environments/environment.ts`: Defines `apiUrlBase`, generated from `.env`.
-- `scripts/generate-env.ts`: Reads `.env` and writes `environment.ts`.
-- `render.yaml`: Configures Render static site deployment.
